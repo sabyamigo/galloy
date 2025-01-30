@@ -1,0 +1,173 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>This is me | 24k Gold Aloy Conversion</title>
+<meta name="description" content="">
+<link rel="icon" href="favicon.ico" sizes="any">
+<meta name="theme-color" content="#423c23">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="app-icon192.png">
+<style type="text/css">
+	* { margin: 0; padding: 0; box-sizing: border-box;}
+	html,body { height: 100%; font-family: "Poppins", sans-serif; font-weight: 400;}      
+	body { display: flex; justify-content: center; align-items: center; background-color: #f4f4f9; height: 100vh; padding: 20px; flex-wrap: wrap; font-size: 16px;}
+	.container {display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;}
+	.signin-box { max-width: 600px; width: 100%;}
+	.signin-box-inner { background-color: white; padding: 15px 30px 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);}
+	h2 { margin-bottom: 20px; font-weight: 600; font-size: 1.5rem}
+	.signin-box-inner h2 { font-weight: 500; font-size: 1.25rem;}
+	.inp-data{ display: flex; column-gap: 15px;}
+	.inp-data .inp-in{ width: 50%; }
+	.inp-in input[type="number"]{width: 100%;}
+	.inner {display: flex; flex-direction: column;}
+	.inp-lbl{ margin-bottom: 10px; }
+	.inp-lbl > label{ width: 100%; display: block;}
+	.inp-lbl .inp-in{ display: inline-block; padding: 5px 0;}
+	.inp-lbl .inp-in label{ position: relative; z-index: 1; padding: 5px 15px; margin:0 10px 0 0; cursor: pointer;}
+	.inp-lbl .inp-in label:before{ position: absolute; top: 0; left: 0; width: calc(100% - 4px); height:calc(100% - 4px); content: ""; background: #ffd700; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border:2px dashed rgba(0,0,0,0); z-index: -1}
+	.inp-lbl .inp-in:last-child label:before{ background-color:#ffce61 ; }
+	.inp-lbl .inp-in input[type="radio"]{ display: none; }
+	.inp-lbl .inp-in input[type="radio"]:checked + label:before{ border-color: #000; }
+
+
+
+	label { margin-bottom: 5px; font-weight: 500;}
+	input[type="number"],input[type="password"] { padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; outline: none; font-family: "Poppins", sans-serif; font-size: 15px; color: #3e3e3e;}
+	.result { font-size: 18px; margin-bottom: 10px;}
+	.result.error{ color: #f00; font-weight: 500;}
+	button { padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.3s ease 0s;}
+	button:hover { background-color: #45a049;}
+	.footer {text-align: center; background-color: #f4f4f9; padding: 10px 0; font-size: 14px; color: #888; width: 100%; position: absolute; bottom: 0; }
+	footer p { margin: 0;}
+	@media only screen and (max-width: 560px) {		
+		h2 {font-size: 1.2rem }
+		.signin-box-inner h2 {font-size: 1.1rem;}
+	}
+	@media only screen and (max-width: 480px) {      	
+		.inp-data{display: block;}
+		.inp-data .inp-in{ width: auto; }
+	}
+	@media only screen and (max-height: 500px) {
+		body{ padding-bottom:0; height: auto; overflow: auto;}
+		.footer{ position: relative; margin-top: 10px;}
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+	  <div class="signin-box">
+	    <h2>24k Gold Aloy Conversion by Sabyasachi</h2>
+	    <div class="signin-box-inner">
+	      <h2>Get Proper Gold Alloy Measurement</h2>
+	      <div class="inner">
+	      	<div class="inp-data">
+	      		<div class="inp-in">
+	          		<label for="weight">Enter 24k Gold Weight</label>
+	        		<input type="number" id="weight" placeholder="Enter value" required>
+	          	</div>
+	          	<div class="inp-in">
+	          		<label for="purity">Set 24k Purity</label>
+	          		<input type="number" id="purity" placeholder="Enter value" required>
+	      		</div>
+	      	</div>	    
+	      	<div class="inp-lbl">
+		      	<label for="karat">Select Gold Karat</label>
+		      	<div class="inp-in">		      		
+		        	<input checked type="radio" id="22k" name="gold_karat" value=".083">
+		        	<label for="22k">22K</label>
+		      	</div>
+		        <div class="inp-in">			        
+			        <input type="radio" id="18k" name="gold_karat" value=".25">
+			        <label for="18k">18K</label>
+		        </div>
+	      	</div>
+	        <p class="result" id="result">Result</p>
+	        <button id="calculate">Calculate Alloy</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<footer class="footer">
+	  <p>&copy; Durga Jewellers | All Rights Reserved</p>
+	</footer>
+	<script type="text/javascript">
+		window.addEventListener('load', () => {
+			registerSW();
+		});	
+
+		// Register the Service Worker
+        async function registerSW() {
+          if ('serviceWorker' in navigator) {
+            try {
+              await navigator
+                    .serviceWorker
+                    .register('serviceworker.js');
+            }
+            catch (e) {
+              console.log('SW registration failed');
+            }
+          }
+        }
+
+		
+		// Function to calculate alloy value
+		function calculateAloy() {
+		// Get input values
+			let weight = parseFloat(document.getElementById('weight').value); // 24k gold weight
+			let purity = parseFloat(document.getElementById('purity').value); // Purity of the gold
+			let karat = document.querySelector('input[name="gold_karat"]:checked'); // Selected gold karat
+
+			// Default 24k gold purity is 99.5%
+			const defaultPurity = 99.5;
+
+			// If input values are valid
+			if (!isNaN(weight) && !isNaN(purity) && karat) {
+			// Remove error class if inputs are valid
+			document.getElementById('result').classList.remove('error');
+
+			// Calculate the difference in purity
+			let purityDifference = purity - defaultPurity;
+
+			// Convert the purity difference to decimal
+			let purityDecimal = purityDifference / 100;
+
+			// Calculate the value of the difference in purity
+			let purityValue = weight * purityDecimal;
+
+			// Round the purity value to 2 decimal places
+			purityValue = Math.round(purityValue * 100) / 100;
+
+			// Get the selected karat value
+			let karatValue = parseFloat(karat.value);
+
+			// Calculate the value for the selected karat
+			let karatValueResult = weight * karatValue;
+
+			// Round the karat value to 2 decimal places
+			karatValueResult = Math.round(karatValueResult * 100) / 100;
+
+			// Calculate final result by adding the purity value and karat value
+			let finalResult = purityValue + karatValueResult;
+
+			// Round the final result to 2 decimal places
+			finalResult = Math.round(finalResult * 100) / 100;
+
+			// Display the result
+			document.getElementById('result').innerText = `Result : ${finalResult}`;
+			} else {
+			// Show error message by adding error class
+				document.getElementById('result').classList.add('error');
+				document.getElementById('result').innerText = "Please enter valid values for all fields.";
+			}
+		}
+
+		// Attach the calculate function to the button click event
+		document.getElementById('calculate').addEventListener('click', calculateAloy);
+	</script>
+</body>
+</html>
